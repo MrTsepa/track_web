@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Cписок задач{% endblock %}
+
+{%block content %}
+{% for task in object_list %}
+<div>
+	<div><a href={{task.id}}>{{ task.title }}</a></div>
+</div>
+{% endfor %}
+{% endblock %}

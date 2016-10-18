@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{ object.title }}{% endblock %}
+
+{%block content %}
+<div>
+	<div>Text: {{ object.text }}</div>
+	<div>Difficulty: {{ object.difficulty }}</div>
+	<div>Solutions:</div>
+	{% for solution in object.solutions.all %}
+	<div>Code: {{ solution.code }} status: {{solution.status}} By: {{solution.user}} time: {{ solution.time }}</div>
+	{% endfor %}
+</div>
+{% endblock %}
