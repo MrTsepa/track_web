@@ -2,12 +2,21 @@
 {% block title %}{{ object.title }}{% endblock %}
 
 {%block content %}
-<div>
-	<div>Text: {{ object.text }}</div>
-	<div>Difficulty: {{ object.difficulty }}</div>
-	<div>Solutions:</div>
-	{% for solution in object.solutions.all %}
-	<div>Code: {{ solution.code }} status: {{solution.status}} By: {{solution.user}} time: {{ solution.time }}</div>
-	{% endfor %}
-</div>
+    {% if user.is_authenticated %}
+        <li>{{ user }}</li>
+        <li><a href="/logout" class="button">Logout</a></li>
+    {% else %}
+        <a href="#">
+            <li><a href="/login" class="button">Login</a></li>
+        </a>
+    {% endif %}
+    <div>
+        <div><a href="/solutions/create">New Solution</a></div>
+	    <div>Text: {{ object.text }}</div>
+	    <div>Difficulty: {{ object.difficulty }}</div>
+	    <div>Solutions:</div>
+	    {% for solution in object.solutions.all %}
+	        <div>Code: {{ solution.code }} status: {{solution.status}} By: {{solution.user}} time: {{ solution.time }}</div>
+	    {% endfor %}
+    </div>
 {% endblock %}

@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import resolve_url
+from django.views.generic.edit import CreateView
+from .models import Solution
 
-# Create your views here.
+
+class SolutionCreate(CreateView):
+    model = Solution
+    fields = [ 'code' ]
+
+    def get_success_url(self):
+        pass

@@ -1,7 +1,6 @@
 {% extends "base.html" %}
-{% block title %}Cписок задач{% endblock %}
-
-{%block content %}
+{% block title %} {% endblock %}
+{% block content %}
     {% if user.is_authenticated %}
         <li>{{ user }}</li>
         <li><a href="/logout" class="button">Logout</a></li>
@@ -10,9 +9,10 @@
             <li><a href="/login" class="button">Login</a></li>
         </a>
     {% endif %}
-    {% for task in object_list %}
-    <div>
-	    <div><a href={{task.id}}>{{ task.title }}</a></div>
-    </div>
-    {% endfor %}
+
+
+    <form action="" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save" />
+    </form>
 {% endblock %}
