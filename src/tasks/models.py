@@ -9,3 +9,6 @@ class Task(models.Model):
     title = models.CharField(max_length=256)
     text = models.TextField()
     difficulty = models.IntegerField()
+
+    def __unicode__(self):
+        return self.title

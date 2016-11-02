@@ -127,5 +127,5 @@ STATICFILES_DIRS = ('/home/stas/PycharmProjects/track_web/src/static/', )
 
 AUTH_USER_MODEL = 'core.User'
 
-LOGIN_REDIRECT_URL = "/tasks"
-LOGIN_URL = "/login"
+LOGIN_REDIRECT_URL = "tasks:task_list"
+LOGIN_URL = "core:login"

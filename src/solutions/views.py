@@ -5,7 +5,11 @@ from .models import Solution
 
 class SolutionCreate(CreateView):
     model = Solution
-    fields = [ 'code' ]
+    fields = ['code', 'task']
 
     def get_success_url(self):
-        pass
+        return resolve_url('tasks:task_detail', pk=self.object.task.id)
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(SolutionCreate, self).form_valid(form)
