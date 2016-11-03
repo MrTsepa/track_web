@@ -7,7 +7,7 @@
         <li><a href="{% url 'core:logout' %}" class="button">Logout</a></li>
     {% else %}
         <a href="#">
-            <li><a href="{% url 'core:login' %}" class="button">Login</a></li>
+            <li><a href="{% url 'core:login' %}?next={{ request.path }}" class="button">Login</a></li>
         </a>
     {% endif %}
     {% for task in object_list %}
