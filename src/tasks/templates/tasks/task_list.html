@@ -4,10 +4,10 @@
 {%block content %}
     {% if user.is_authenticated %}
         <li>{{ user }}</li>
-        <li><a href="/logout" class="button">Logout</a></li>
+        <li><a href="{% url 'core:logout' %}" class="button">Logout</a></li>
     {% else %}
         <a href="#">
-            <li><a href="/login" class="button">Login</a></li>
+            <li><a href="{% url 'core:login' %}" class="button">Login</a></li>
         </a>
     {% endif %}
     {% for task in object_list %}
@@ -15,5 +15,5 @@
 	    <div><a href={{task.id}}>{{ task.title }}</a></div>
     </div>
     {% endfor %}
-    <div><a href="/solutions/create">New Solution</a></div>
+    <div><a href="{% url 'solutions:solution_create' %}">New Solution</a></div>
 {% endblock %}
