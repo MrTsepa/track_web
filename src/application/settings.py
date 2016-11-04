@@ -122,8 +122,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/stas/PycharmProjects/track_web/collected_static/'
-STATICFILES_DIRS = ('/home/stas/PycharmProjects/track_web/src/static/', )
+STATIC_ROOT = 'collected_static/'
+STATICFILES_DIRS = ('src/static/', )
 
 AUTH_USER_MODEL = 'core.User'
 
