@@ -3,4 +3,4 @@ from django_ace import AceWidget
 
 
 class AceEditorForm(forms.Form):
-    text = forms.CharField(widget=AceWidget(mode='css'))
+    text = forms.CharField(widget=AceWidget(mode='python'))
