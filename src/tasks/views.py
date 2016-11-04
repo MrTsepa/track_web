@@ -14,11 +14,6 @@ class TaskList(ListView):
     model = Task
 
 
-class TaskDetail(DetailView):
-    template_name = 'tasks/task_detail.html'
-    model = Task
-
-
 class TaskDetailAndCreate(CreateView):
     model = apps.get_model('solutions.Solution')
     template_name = 'tasks/task_detail_and_create.html'
@@ -26,11 +21,15 @@ class TaskDetailAndCreate(CreateView):
 
     def dispatch(self, request, pk=None, *args, **kwargs):
         self.task = get_object_or_404(Task, id=pk)
+        if self.request.user.is_authenticated:
+            print self.request.user.is_authenticated
+            self.task.user_solutions = self.task.solutions.filter(user=self.request.user)
         return super(TaskDetailAndCreate, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(TaskDetailAndCreate, self).get_context_data(**kwargs)
         context['task'] = self.task
+        # context['user_solutions'] = self.task.solutions.filter(user=self.request.user)
         return context
 
     def get_success_url(self):

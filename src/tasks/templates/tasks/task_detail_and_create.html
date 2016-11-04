@@ -6,26 +6,43 @@
         <li>{{ user }}</li>
         <li><a href="{% url 'core:logout' %}?next={{ request.path }}" class="button">Logout</a></li>
     {% else %}
-        <a href="#">
-            <li><a href="{% url 'core:login' %}?next={{ request.path }}" class="button">Login</a></li>
-        </a>
+        <li><a href="{% url 'core:login' %}?next={{ request.path }}" class="button">Login</a></li>
+        <li><a href="{% url 'core:register' %}" class="button">Register</a></li>
     {% endif %}
-    <div>
 
-	    <div>Text: {{ task.text }}</div>
-	    <div>Difficulty: {{ task.difficulty }}</div>
-	    <div>Solutions:</div>
-	    {% for solution in task.solutions.all %}
-	        <div>Code: {{ solution.code }} status: {{solution.status}} By: {{solution.user}} time: {{ solution.time }}</div>
-	    {% endfor %}
-    </div>
+    <div>Text: {{ task.text }}</div>
+    <div>Difficulty: {{ task.difficulty }}</div>
+
     {% if user.is_authenticated %}
+        <div>Solutions:</div>
+        <table border="1">
+        <tr>
+            <td>Code</td>
+            <td>Status</td>
+            <td>Author</td>
+            <td>Time</td>
+        </tr>
+        {% for solution in task.user_solutions %}
+            <tr>
+                <td>{{ solution.code }}</td>
+                <td>{{ solution.status }}</td>
+                <td>{{ solution.user }}</td>
+                <td>{{ solution.time }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+
         <div>
         <form action="" method="post">{% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="Submit" />
         </form>
         </div>
+    {% else %}
+        <div>To submit your solution you need to
+            <a href = "{% url "core:login" %}?next={{ request.path }}">login</a>.
+        </div>
     {% endif %}
+
     <div><a href="{% url 'tasks:task_list' %}">To tasks</a> </div>
 {% endblock %}
