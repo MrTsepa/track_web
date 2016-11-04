@@ -24,7 +24,10 @@
         </tr>
         {% for solution in task.user_solutions %}
             <tr>
-                <td>{{ solution.code }}</td>
+                <td>
+                    <a target = "_blank"
+                       href="{% url "solutions:code_detail_view" solution.id %}">View</a>
+                </td>
                 <td>{{ solution.status }}</td>
                 <td>{{ solution.user }}</td>
                 <td>{{ solution.time }}</td>
