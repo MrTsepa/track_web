@@ -64,4 +64,5 @@ class TaskDetailAceEditorView(FormView):
         solution.task = self.task
         solution.code = form.cleaned_data['text']
         solution.save()
+        solution.run_tests()
         return super(TaskDetailAceEditorView, self).form_valid(form)
