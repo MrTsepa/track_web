@@ -4,7 +4,7 @@
 {%block content %}
     {% if user.is_authenticated %}
         <li>{{ user }}</li>
-        <li><a href="{% url 'core:logout' %}" class="button">Logout</a></li>
+        <li><a href="{% url 'core:logout' %}?next={{ request.path }}" class="button">Logout</a></li>
     {% else %}
         <a href="#">
             <li><a href="{% url 'core:login' %}?next={{ request.path }}" class="button">Login</a></li>
