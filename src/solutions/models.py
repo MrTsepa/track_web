@@ -13,23 +13,21 @@ class Solution(models.Model):
     def run_tests(self):
         self.status = 'In progress'
         self.save()
-        
-        import threading
 
-        def prepare_and_test(solution):
-            from src.buisness.models import Code, Test
+        def handle_tests_results(solution):
             from src.buisness.executing import execute
-            code_path = 'data/solutions/' + str(solution.id) + '/code.py'
-            with open(code_path, 'w+') as fout:
-                fout.write(solution.code)
-            code = Code(code_path)
-            tests = []
-            for test in solution.task.tests:
-                tests.append(Test(str(test.input_path), str(test.output_path)))
-            execute(code, tests)
+            results = execute(solution.code, solution.task.tests.all())
+            from src.buisness.testing import ResultType
+            result = ResultType.OK
+            for r in results:
+                if r != ResultType.OK:
+                    result = r
+            self.status = result.name
+            self.save()
 
-        thread = threading.Thread(target=prepare_and_test, args=[self])
-        # thread.start()
+        import threading
+        thread = threading.Thread(target=handle_tests_results, args=[self])
+        thread.start()
 
     def __unicode__(self):
         return "id: " + unicode(self.id) + ", " + \

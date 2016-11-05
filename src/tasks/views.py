@@ -6,8 +6,6 @@ from django.views.generic.list import ListView
 from .models import Task
 from .forms import AceEditorForm
 
-# Create your views here.
-
 
 class TaskList(ListView):
     template_name = 'tasks/task_list.html'
