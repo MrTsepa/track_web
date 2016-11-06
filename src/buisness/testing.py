@@ -20,16 +20,15 @@ def run_test(code, test):
     outputIO = StringIO.StringIO()
     sys.stdin = inputIO
     sys.stdout = outputIO
-    exec(code)
-    sys.stdin = sys.__stdin__
-    sys.stdout = sys.__stdout__
-    if outputIO.getvalue() == test.output + '\n':
-        result = ResultType.OK
+    try:
+        exec(code)
+    except Exception:
+        return ResultType.COMPILATION_ERROR
     else:
-        result = ResultType.WRONG_ANSWER
-
-    inputIO.close()
-    outputIO.close()
-
-    print result
-    return result
+        if outputIO.getvalue() == test.output + '\n':
+            return ResultType.OK
+        else:
+            return ResultType.WRONG_ANSWER
+    finally:
+        inputIO.close()
+        outputIO.close()
