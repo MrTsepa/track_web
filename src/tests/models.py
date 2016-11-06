@@ -6,8 +6,8 @@ from django.db import models
 
 
 class Test(models.Model):
-    input_path = models.CharField(max_length=256)
-    output_path = models.CharField(max_length=256)
+    input = models.TextField()
+    output = models.TextField()
     task = models.ForeignKey('tasks.Task', related_name='tests')
 
     def __unicode__(self):

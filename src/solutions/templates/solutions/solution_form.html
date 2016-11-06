@@ -3,10 +3,10 @@
 {% block content %}
     {% if user.is_authenticated %}
         <li>{{ user }}</li>
-        <li><a href="/logout" class="button">Logout</a></li>
+        <li><a href="{% url 'core:logout' %}" class="button">Logout</a></li>
     {% else %}
         <a href="#">
-            <li><a href="/login" class="button">Login</a></li>
+            <li><a href="{% url 'core:login' %}" class="button">Login</a></li>
         </a>
     {% endif %}
 
@@ -15,4 +15,5 @@
         {{ form.as_p }}
         <input type="submit" value="Save" />
     </form>
+    <div><a href="{% url 'tasks:task_list' %}">To tasks</a> </div>
 {% endblock %}
