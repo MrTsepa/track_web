@@ -30,5 +30,7 @@ def run_test(code, test):
         else:
             return ResultType.WRONG_ANSWER
     finally:
+        sys.stdin = sys.__stdin__
+        sys.stdout = sys.__stdout__
         inputIO.close()
         outputIO.close()

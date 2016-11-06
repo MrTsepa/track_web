@@ -18,6 +18,7 @@ class Solution(models.Model):
         def handle_tests_results(solution):
             from src.buisness.executing import execute
             results = execute(solution.code, solution.task.tests.all())
+            print results
             from src.buisness.testing import ResultType
             result = ResultType.OK
             for r in results:
