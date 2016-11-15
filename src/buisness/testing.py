@@ -4,7 +4,7 @@ from enum import Enum
 class ResultType(Enum):
     OK = 1
     WRONG_ANSWER = 2
-    COMPILATION_ERROR = 3
+    RUNTIME_ERROR = 3
 
 
 # def run_test(code_folder_path, test_input_folder_path, test_output_folder_path):
@@ -23,7 +23,7 @@ def run_test(code, test):
     try:
         exec(code)
     except Exception:
-        return ResultType.COMPILATION_ERROR
+        return ResultType.RUNTIME_ERROR
     else:
         if outputIO.getvalue() == test.output + '\n':
             return ResultType.OK
