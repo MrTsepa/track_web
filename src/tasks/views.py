@@ -12,32 +12,6 @@ class TaskList(ListView):
     model = Task
 
 
-class TaskDetailAndCreate(CreateView):
-    model = apps.get_model('solutions.Solution')
-    template_name = 'tasks/task_detail_and_create.html'
-    fields = ('code', )
-
-    def dispatch(self, request, pk=None, *args, **kwargs):
-        self.task = get_object_or_404(Task, id=pk)
-        if self.request.user.is_authenticated:
-            print self.request.user.is_authenticated
-            self.task.user_solutions = self.task.solutions.filter(user=self.request.user)
-        return super(TaskDetailAndCreate, self).dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(TaskDetailAndCreate, self).get_context_data(**kwargs)
-        context['task'] = self.task
-        return context
-
-    def get_success_url(self):
-        return resolve_url('tasks:task_detail_and_create', pk=self.object.task.id)
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.task = self.task
-        return super(TaskDetailAndCreate, self).form_valid(form)
-
-
 class TaskDetailAceEditorView(FormView):
     form_class = AceEditorForm
     template_name = "tasks/task_detail_ace_editor.html"
