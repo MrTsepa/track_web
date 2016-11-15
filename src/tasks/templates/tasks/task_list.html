@@ -2,13 +2,7 @@
 {% block title %}Cписок задач{% endblock %}
 
 {%block content %}
-    {% if user.is_authenticated %}
-        <li>{{ user }}</li>
-        <li><a href="{% url 'core:logout' %}" class="button">Logout</a></li>
-    {% else %}
-        <li><a href="{% url 'core:login' %}?next={{ request.path }}" class="button">Login</a></li>
-        <li><a href="{% url 'core:register' %}" class="button">Register</a></li>
-    {% endif %}
+    {% include "core/authorization.html" %}
     {% for task in object_list %}
         <div><a href={{ task.id }}>{{ task.title }}</a></div>
     {% endfor %}
