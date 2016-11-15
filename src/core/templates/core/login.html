@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% block title %}{% endblock %}
+{% block title %}Login{% endblock %}
+{% block authorization %}{% endblock %}
 {% block content %}
     <form action="" method="post">{% csrf_token %}
         {{ form.as_p }}

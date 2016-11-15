@@ -1,6 +1,22 @@
 body {
 	width: 40em;
-	margin: 0 auto;
+    margin: 0 auto 10%;
     font-family: Tahoma;
 	position: relative;
+}
+
+.navbar {
+    margin-bottom: 10px;
+}
+
+.navbar-right {
+    padding: 0 2em;
+}
+
+.navbar-text-user {
+    font-style: italic;
+}
+
+.glyphicon-ok {
+    color: green;
 }

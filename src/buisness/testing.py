@@ -23,7 +23,7 @@ def run_test(code, test):
     try:
         exec(code)
         import time
-        time.sleep(10)
+        time.sleep(1)
     except Exception:
         return ResultType.RUNTIME_ERROR
     else:

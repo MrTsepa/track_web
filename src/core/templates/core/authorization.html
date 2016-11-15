@@ -1,7 +1,11 @@
 {% if user.is_authenticated %}
-    <li>{{ user }}</li>
-    <li><a href="{% url 'core:logout' %}" class="button">Logout</a></li>
+    <ul class="nav navbar-nav navbar-right">
+        <li class="navbar-text navbar-text-user">{{ user }}</li>
+        <li><a href="{% url 'core:logout' %}" class="button">Logout</a></li>
+    </ul>
 {% else %}
-    <li><a href="{% url 'core:login' %}?next={{ request.path }}" class="button">Login</a></li>
-    <li><a href="{% url 'core:register' %}" class="button">Register</a></li>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'core:login' %}?next={{ request.path }}" class="button">Login</a></li>
+        <li><a href="{% url 'core:register' %}" class="button">Register</a></li>
+    </ul>
 {% endif %}

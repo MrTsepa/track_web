@@ -2,13 +2,10 @@
 {% block title %}{{ task.title }}{% endblock %}
 
 {%block content %}
-    {% include "core/authorization.html" %}
-
-    <pre>{{ task.text }}</pre>
-    <div>Difficulty: {{ task.difficulty }}</div>
-
+    <div>
+        <pre>{{ task.text }}</pre>
+    </div>
     {% if user.is_authenticated %}
-        <div>Solutions:</div>
         <table border="1" class="table">
         <tr>
             <td>Code</td>
@@ -41,6 +38,4 @@
             <a href = "{% url "core:login" %}?next={{ request.path }}">login</a>.
         </div>
     {% endif %}
-
-    <div><a href="{% url 'tasks:task_list' %}">To tasks</a> </div>
 {% endblock %}
