@@ -16,18 +16,18 @@ class TaskList(ListView):
         return context
 
 
-class TaskDetailAceEditorView(FormView):
+class TaskDetailView(FormView):
     form_class = AceEditorForm
-    template_name = "tasks/task_detail_ace_editor.html"
+    template_name = "tasks/task_detail.html"
 
     def dispatch(self, request, pk=None, *args, **kwargs):
         self.task = get_object_or_404(Task, id=pk)
         if self.request.user.is_authenticated:
             self.task.user_solutions = self.task.solutions.filter(user=self.request.user)
-        return super(TaskDetailAceEditorView, self).dispatch(request, *args, **kwargs)
+        return super(TaskDetailView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(TaskDetailAceEditorView, self).get_context_data(**kwargs)
+        context = super(TaskDetailView, self).get_context_data(**kwargs)
         context['task'] = self.task
         return context
 
@@ -41,4 +41,4 @@ class TaskDetailAceEditorView(FormView):
         solution.code = form.cleaned_data['text']
         solution.save()
         solution.run_tests()
-        return super(TaskDetailAceEditorView, self).form_valid(form)
+        return super(TaskDetailView, self).form_valid(form)
