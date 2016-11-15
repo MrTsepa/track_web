@@ -22,6 +22,8 @@ def run_test(code, test):
     sys.stdout = outputIO
     try:
         exec(code)
+        import time
+        time.sleep(10)
     except Exception:
         return ResultType.RUNTIME_ERROR
     else:
