@@ -2,40 +2,55 @@
 {% block title %}{{ task.title }}{% endblock %}
 
 {%block content %}
-    <div>
-        <pre>{{ task.text }}</pre>
-    </div>
-    {% if user.is_authenticated %}
-        <table border="1" class="table">
-        <tr>
-            <td>Code</td>
-            <td>Status</td>
-            <td>Author</td>
-            <td>Time</td>
-        </tr>
-        {% for solution in task.user_solutions %}
-            <tr>
-                <td>
-                    <a target = "_blank"
-                       href="{% url "solutions:code_detail_view" solution.id %}">View and run tests</a>
-                </td>
-                <td>{{ solution.status }}</td>
-                <td>{{ solution.user }}</td>
-                <td>{{ solution.time }}</td>
-            </tr>
-        {% endfor %}
-        </table>
+    <div class="row">
+        <div class="col-md-3 list-group task-list-small">
+            {% for task_obj in tasks %}
+                <a class="list-group-item {% if task_obj == task %}active{% endif %}"
+                   href="{% url "tasks:task_detail" pk=task_obj.id  %}">
+                    {{ task_obj.title }}
+                    {% load task_tags %}
+                    {% is_solved_by task_obj user as is_solved %}
+                    {% if is_solved %}
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+        <div class="col-md-12">
+            <pre>{{ task.text }}</pre>
+            {% if user.is_authenticated %}
+                <table border="1" class="table">
+                <tr>
+                    <td>Code</td>
+                    <td>Status</td>
+                    <td>Author</td>
+                    <td>Time</td>
+                </tr>
+                {% for solution in task.user_solutions %}
+                    <tr>
+                        <td>
+                            <a target = "_blank"
+                               href="{% url "solutions:code_detail_view" solution.id %}">View and run tests</a>
+                        </td>
+                        <td>{{ solution.status }}</td>
+                        <td>{{ solution.user }}</td>
+                        <td>{{ solution.time }}</td>
+                    </tr>
+                {% endfor %}
+                </table>
 
-        {{ form.media }}
-        <div>
-        <form action="" method="post">{% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Submit" />
-        </form>
+                {{ form.media }}
+                <div>
+                <form action="" method="post">{% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Submit" />
+                </form>
+                </div>
+            {% else %}
+                <div>To submit your solution you need to
+                    <a href = "{% url "core:login" %}?next={{ request.path }}">login</a>.
+                </div>
+            {% endif %}
         </div>
-    {% else %}
-        <div>To submit your solution you need to
-            <a href = "{% url "core:login" %}?next={{ request.path }}">login</a>.
-        </div>
-    {% endif %}
+    </div>
 {% endblock %}

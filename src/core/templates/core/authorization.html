@@ -1,7 +1,7 @@
 {% if user.is_authenticated %}
     <ul class="nav navbar-nav navbar-right">
         <li class="navbar-text navbar-text-user">{{ user }}</li>
-        <li><a href="{% url 'core:logout' %}" class="button">Logout</a></li>
+        <li><a href="{% url 'core:logout' %}?next={{ request.path }}" class="button">Logout</a></li>
     </ul>
 {% else %}
     <ul class="nav navbar-nav navbar-right">

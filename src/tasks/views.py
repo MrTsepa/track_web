@@ -1,5 +1,5 @@
 from django.apps import apps
-from django.shortcuts import get_object_or_404, resolve_url
+from django.shortcuts import get_object_or_404, resolve_url, get_list_or_404
 from django.views.generic.edit import CreateView, FormView
 from django.views.generic.list import ListView
 
@@ -22,6 +22,7 @@ class TaskDetailView(FormView):
 
     def dispatch(self, request, pk=None, *args, **kwargs):
         self.task = get_object_or_404(Task, id=pk)
+        self.tasks = get_list_or_404(Task)
         if self.request.user.is_authenticated:
             self.task.user_solutions = self.task.solutions.filter(user=self.request.user)
         return super(TaskDetailView, self).dispatch(request, *args, **kwargs)
@@ -29,6 +30,7 @@ class TaskDetailView(FormView):
     def get_context_data(self, **kwargs):
         context = super(TaskDetailView, self).get_context_data(**kwargs)
         context['task'] = self.task
+        context['tasks'] = self.tasks
         return context
 
     def get_success_url(self):
