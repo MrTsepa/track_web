@@ -4,8 +4,15 @@
         <li><a href="{% url 'core:logout' %}?next={{ request.path }}" class="button">Logout</a></li>
     </ul>
 {% else %}
-    <ul class="nav navbar-nav navbar-right">
-        <li><a href="{% url 'core:login' %}?next={{ request.path }}" class="button">Login</a></li>
-        <li><a href="{% url 'core:register' %}" class="button">Register</a></li>
+    <ul class="nav navbar-nav">
+        <li><a href="{% url 'core:register' %}?next={{ request.path }}" class="button">Register</a></li>
     </ul>
+    <form class="form-inline float-xs-right"
+          id="login-on-page-form"
+              action="" method="post">{% csrf_token %}
+        {{ request.login_form.username }}
+        {{ request.login_form.password }}
+        <input class="btn btn-outline-success" type="submit" name="account" value="Login">
+        <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+    </form>
 {% endif %}

@@ -34,7 +34,7 @@ class TaskDetailView(FormView):
         return context
 
     def get_success_url(self):
-        return resolve_url('tasks:task_detail_ace_editor', pk=self.task.id)
+        return resolve_url('tasks:task_detail', pk=self.task.id)
 
     def form_valid(self, form):
         solution = apps.get_model('solutions.Solution')()

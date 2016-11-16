@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'core',
 ]
 
+from django.middleware.security import SecurityMiddleware
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -52,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'core.middleware.middlewares.LoginFormMiddleware',
 ]
 
 ROOT_URLCONF = 'application.urls'
