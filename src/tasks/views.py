@@ -1,10 +1,9 @@
 from django.apps import apps
 from django.shortcuts import get_object_or_404, resolve_url, get_list_or_404
-from django.views.generic.edit import CreateView, FormView
+from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
 from .models import Task
-from .forms import AceEditorForm
 
 
 class TaskList(ListView):
@@ -16,8 +15,7 @@ class TaskList(ListView):
         return context
 
 
-class TaskDetailView(FormView):
-    form_class = AceEditorForm
+class TaskDetailView(TemplateView):
     template_name = "tasks/task_detail.html"
 
     def dispatch(self, request, pk=None, *args, **kwargs):
@@ -36,11 +34,11 @@ class TaskDetailView(FormView):
     def get_success_url(self):
         return resolve_url('tasks:task_detail', pk=self.task.id)
 
-    def form_valid(self, form):
-        solution = apps.get_model('solutions.Solution')()
-        solution.user = self.request.user
-        solution.task = self.task
-        solution.code = form.cleaned_data['text']
-        solution.save()
-        solution.run_tests()
-        return super(TaskDetailView, self).form_valid(form)
+    # def form_valid(self, form):
+    #     solution = apps.get_model('solutions.Solution')()
+    #     solution.user = self.request.user
+    #     solution.task = self.task
+    #     solution.code = form.cleaned_data['text']
+    #     solution.save()
+    #     solution.run_tests()
+    #     return super(TaskDetailView, self).form_valid(form)
