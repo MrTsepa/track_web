@@ -20,3 +20,9 @@ body {
 #login-on-page-form {
     padding: 0.5em;
 }
+
+#ace-editor {
+    height: 20em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
