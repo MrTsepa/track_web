@@ -28,29 +28,25 @@
                 </tr>
                 {% for solution in task.user_solutions %}
                     <tr>
-                        <td>
-                            <a target = "_blank"
-                               href="{% url "solutions:code_detail_view" solution.id %}">View and run tests</a>
-                        </td>
-                        <td>{{ solution.status }}</td>
+                        <td class="btn-group">
+                            <a class="btn btn-info"
+                                    href="{% url "solutions:solution_detail" pk=solution.id %}">Detail</a>
+                            <button class="run_solution btn btn-success"
+                                    data-solution_id="{{ solution.id }}">Run</button>
+                            <button class="edit-solution btn btn-default"
+                                    data-solution_code="{{ solution.code }}">Edit</button>
+                        <td class="solution_status"
+                            data-solution_id="{{ solution.id }}">{{ solution.status }}</td>
                         <td>{{ solution.user }}</td>
                         <td>{{ solution.time }}</td>
                     </tr>
                 {% endfor %}
                 </table>
 
-                <!--
-                {{ form.media }}
-                <div>
-                <form action="" method="post">{% csrf_token %}
-                    {{ form.as_p }}
-                    <input type="submit" value="Submit" />
-                </form>
-                </div>
-                -->
                 <div class="col-md-8">
-                    <div id="ace-editor">aaaaa</div>
-                    <button type="submit" class="btn btn-primary" id="submit-code">Submit</button>
+                    <div id="ace-editor"></div>
+                    <button type="submit" class="btn btn-primary" id="submit-code"
+                        data-task_id="{{ task.id }}">Submit</button>
                 </div>
             {% else %}
                 <div>To submit your solution you need to

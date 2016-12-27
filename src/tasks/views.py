@@ -33,12 +33,3 @@ class TaskDetailView(TemplateView):
 
     def get_success_url(self):
         return resolve_url('tasks:task_detail', pk=self.task.id)
-
-    # def form_valid(self, form):
-    #     solution = apps.get_model('solutions.Solution')()
-    #     solution.user = self.request.user
-    #     solution.task = self.task
-    #     solution.code = form.cleaned_data['text']
-    #     solution.save()
-    #     solution.run_tests()
-    #     return super(TaskDetailView, self).form_valid(form)
